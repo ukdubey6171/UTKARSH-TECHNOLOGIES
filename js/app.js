@@ -1,0 +1,25 @@
+(function(){
+var P=[["index.html","Home"],["about.html","About"],["services.html","Services"],["packages.html","Packages"],["team.html","Team"],["contact.html","Contact"]];
+var cur=location.pathname.split("/").pop()||"index.html";
+var moon='<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A8 8 0 0 1 12 2z"/></svg>';
+window.__m=function(i){i.outerHTML=moon};
+var lg='<img src="images/logo.png" alt="Utkarsh Technologies" onerror="__m(this)">';
+var L=P.map(function(p){return '<a href="'+p[0]+'"'+(p[0]==cur?' class="on"':'')+'>'+p[1]+'</a>'}).join("");
+var n=document.createElement("nav");
+n.innerHTML='<div class="wrap"><a class="logo" href="index.html">'+lg+'UTKARSH TECHNOLOGIES</a><div class="links">'+L+'</div><a class="pill" href="contact.html">Get a plan</a><button class="burger" aria-label="Menu"><span></span><span></span><span></span></button></div><div class="drawer">'+L+'</div>';
+document.body.prepend(n);
+n.querySelector(".burger").onclick=function(){n.classList.toggle("open")};
+var t=document.createElement("div");t.className="tabs";t.innerHTML=L;document.body.append(t);
+var f=document.createElement("footer");
+f.innerHTML='<div class="wrap"><div><a class="logo" href="index.html">'+lg+'UTKARSH TECHNOLOGIES LIMITED</a><p style="margin-top:10px">Head Office: National Highway, Bina Project,<br>Distt Sonbhadra, Uttar Pradesh<br><a href="tel:05446357766">Call 05446357766</a><br>www.utkarshtech.in</p></div><div>'+L+'</div><div><a href="services.html">Election posters</a><a href="services.html">Reels &amp; podcasts</a><a href="services.html">WhatsApp &amp; SMS</a></div></div><div class="wrap"><p class="note">All campaign services are subject to applicable election laws, advertising policies, privacy requirements, telecom regulations, and platform rules.<br>&copy; 2026 Utkarsh Technologies Limited</p></div>';
+document.body.append(f);
+addEventListener("scroll",function(){n.classList.toggle("s",scrollY>20);var p=document.querySelector(".phone");if(p&&innerWidth>=768){var k=Math.min(scrollY/500,1);p.style.transform="rotateY("+(-14+14*k)+"deg) rotateZ("+(3-3*k)+"deg)"}},{passive:true});
+document.querySelectorAll(".stars").forEach(function(s){for(var i=0;i<40;i++){var d=document.createElement("i");d.className="star";var z=1+Math.round(Math.random());d.style.cssText="left:"+Math.random()*100+"%;top:"+Math.random()*100+"%;width:"+z+"px;height:"+z+"px;opacity:"+(.1+Math.random()*.2)+";animation-delay:"+(Math.random()*5)+"s;animation-duration:"+(3+Math.random()*2)+"s";if(i%3)d.style.animation="none";s.appendChild(d)}});
+var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}})},{threshold:.15});
+document.querySelectorAll(".rv,.tl").forEach(function(el,i){el.style.transitionDelay=(el.classList.contains("rv")?(i%3)*.1:0)+"s";io.observe(el)});
+var form=document.getElementById("lead");
+if(form)form.addEventListener("submit",function(e){e.preventDefault();var d=new FormData(form);
+var m="Namaste Utkarsh Technologies,%0AName: "+encodeURIComponent(d.get("name"))+"%0APosition: "+encodeURIComponent(d.get("pos"))+"%0AVillage/Block: "+encodeURIComponent(d.get("area"))+"%0AInterested in: "+encodeURIComponent(d.get("msg"));
+location.href="https://wa.me/"+(window.UTK_WHATSAPP||"919335836806")+"?text="+m});
+document.querySelectorAll(".card").forEach(function(c){var h=c.querySelector("h3");if(h&&/^(Gram Pradhan|Gram Panchayat Member|BDC Member|Zila Panchayat Member)$/.test(h.textContent.trim())){c.style.cursor="pointer";c.setAttribute("role","link");c.tabIndex=0;c.onclick=function(){location.href="packages.html"}}});
+})();
