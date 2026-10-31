@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://utkarshtech.online/sitemap.xml
