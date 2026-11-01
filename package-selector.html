@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Package Selector | Utkarsh Technologies Limited</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;700&display=swap" rel="stylesheet"><meta name="description" content="Choose what you want to promote and the services you need. Get a suggested marketing package from Utkarsh Technologies."><meta name="theme-color" content="#0A0000"><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="48x48" href="favicon-48.png"><link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/motion.css"><script>document.documentElement.className+=" mo"</script></head><body><style>.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.chipb{background:var(--card);color:var(--fg);border:1px solid var(--bd);border-radius:99px;padding:12px 20px;font:500 15px inherit;font-family:inherit;cursor:pointer}.chipb.on{background:var(--pri);border-color:var(--pri);color:#fff}.opt{display:flex;gap:12px;align-items:center;padding:16px;border:1px solid var(--bd);border-radius:14px;background:var(--card);cursor:pointer}.opt input{width:20px;height:20px;padding:0;accent-color:var(--pri)}.opt small{display:block;color:var(--mut);font-size:12px}#res ul{margin-bottom:6px}</style>
+<header class="hero" style="min-height:56vh"><div class="aurora"><i></i><i></i></div><div class="aurora stars"></div><div class="wrap"><div><span class="label">Package selector</span><h1><span>Find the right</span><span>package for you.</span></h1><p class="sub">Choose what you want to promote and the services you need. We will suggest a plan. Prices are approximate; call us for the exact pricing.</p></div></div></header>
+<section style="padding-top:20px"><div class="wrap"><span class="label">Step 1</span><h2>What do you want to promote?</h2><div id="purp" class="chips"></div>
+<span class="label" style="margin-top:44px">Step 2</span><h2>Choose your services</h2><div id="svc" class="grid c3" style="margin-top:20px"></div>
+<span class="label" style="margin-top:44px">On request</span><h2>Podcast &amp; customised songs</h2><p class="sub">These two are priced on demand, based on your requirement. Select them to ask for a quote.</p><div id="od" class="grid c2" style="margin-top:20px"></div>
+<div class="grid c2" id="od" style="margin-top:28px"><div class="card"><span class="label">On-demand quote</span><h3>Podcast</h3><p>Rates are shared as an on-demand quote, based on your requirement.</p><div class="row" style="margin-top:16px"><a class="pill" href="enquiry.html?dept=Marketing%20%26%20Advertisement&amp;service=Other%20marketing&amp;msg=Please%20share%20a%20quote%20for%20Podcast">Contact for Pricing</a></div></div><div class="card"><span class="label">On-demand quote</span><h3>Customised Song</h3><p>Rates are shared as an on-demand quote, based on your requirement.</p><div class="row" style="margin-top:16px"><a class="pill" href="enquiry.html?dept=Marketing%20%26%20Advertisement&amp;service=Other%20marketing&amp;msg=Please%20share%20a%20quote%20for%20Customised%20Song">Contact for Pricing</a></div></div></div>
+<div class="card hi" id="res" style="margin-top:36px;padding:30px"></div></div></section>
+<script src="js/app.js"></script>
+<script>
+(function(){
+var SV=[["Posters & graphics",0],["WhatsApp marketing",0],["SMS marketing",0],["UGC reel production",1],["Meta marketing & SEO",1],["Voice call marketing",1],["Modern website",2]];
+var OD=["Podcast","Customised song"];
+var PL=[["Starter","₹5,000"],["Growth","₹15,000"],["Complete","₹25,000"]];
+var PU={"Election Campaign":[0,1,2,3,5],"Shop Opening Promotion":[0,1,3,4],"Business Advertisement":[0,1,2,4],"Event / Launch Promotion":[0,1,2],"Other marketing":[]};
+var cur="Other marketing",purp=document.getElementById("purp"),svc=document.getElementById("svc"),od=document.getElementById("od"),res=document.getElementById("res");
+function esc(t){return t.replace(/&/g,"&amp;")}
+Object.keys(PU).forEach(function(k){var b=document.createElement("button");b.type="button";b.className="chipb";b.textContent=k;b.onclick=function(){pick(k)};purp.appendChild(b)});
+SV.forEach(function(s,i){var l=document.createElement("label");l.className="opt";l.innerHTML='<input type="checkbox" value="'+i+'"><span>'+esc(s[0])+'<small>'+PL[s[1]][0]+' package</small></span>';svc.appendChild(l);l.querySelector("input").onchange=calc});
+OD.forEach(function(s,i){var l=document.createElement("label");l.className="opt";l.innerHTML='<input type="checkbox" value="'+i+'"><span>'+s+'<small>Contact for pricing</small></span>';od.appendChild(l);l.querySelector("input").onchange=calc});
+var boxes=svc.querySelectorAll("input"),oboxes=od.querySelectorAll("input");
+function pick(k){cur=k;[].forEach.call(purp.children,function(b){b.classList.toggle("on",b.textContent==k)});boxes.forEach(function(c,i){c.checked=PU[k].indexOf(i)>-1});calc()}
+function flash(){res.classList.remove("pop");void res.offsetWidth;res.classList.add("pop")}
+var NOTE='<p class="note" style="margin:16px 0 18px"><b>Note:</b> These prices are approximate. Please call us to know the exact pricing.</p>';
+var CALL='<a class="ghost" href="tel:05446357766">Call Now</a>';
+function calc(){flash();var ch=[],oq=[];boxes.forEach(function(c,i){if(c.checked)ch.push(i)});oboxes.forEach(function(c,i){if(c.checked)oq.push(OD[i])});
+if(!ch.length&&!oq.length){res.innerHTML='<h3>Choose at least one service</h3><p>Your recommended package will appear here.</p>'+NOTE+'<div class="row">'+CALL+'</div>';return}
+var base="enquiry.html?dept="+encodeURIComponent("Marketing & Advertisement")+"&service="+encodeURIComponent(cur);
+var sel=ch.map(function(i){return SV[i][0]});
+var odTxt=oq.length?'<p style="margin-top:14px"><b>'+esc(oq.join(" and "))+':</b> Contact for pricing. These are quoted on demand for your requirement.</p>':'';
+var quote=oq.length?" | Quote needed for: "+oq.join(", "):"";
+if(!ch.length){res.innerHTML='<span class="label">On-demand pricing</span><h3>Contact for pricing</h3><p style="margin-top:8px">'+esc(oq.join(" and "))+' are priced on demand, based on your requirement.</p>'+NOTE+'<div class="row"><a class="pill" href="'+base+'&note='+encodeURIComponent("Quote needed for: "+oq.join(", "))+'">Contact for Pricing</a>'+CALL+'</div>';return}
+var t=Math.max.apply(null,ch.map(function(i){return SV[i][1]}));
+var inc=SV.filter(function(s){return s[1]<=t}).map(function(s){return s[0]});
+var url=base+"&plan="+PL[t][0]+"&note="+encodeURIComponent(sel.join(", ")+quote);
+res.innerHTML='<span class="label">Recommended for you</span><h3>'+PL[t][0]+' package</h3><div class="price">'+PL[t][1]+' <small>approx. starting price</small></div><p style="margin-top:12px"><b>Your selection:</b> '+esc(sel.join(", "))+'</p><p><b>Included in this package:</b></p><ul class="ck">'+inc.map(function(x){return "<li>"+esc(x)+"</li>"}).join("")+'</ul>'+odTxt+NOTE+'<div class="row"><a class="pill" href="'+url+'">'+(oq.length?"Send enquiry &amp; ask for quote":"Send enquiry for this package")+'</a>'+CALL+'</div>'}
+var q=new URLSearchParams(location.search).get("purpose");pick(PU[q]?q:"Election Campaign");
+})();
+</script><script src="js/chatbot.js"></script><script src="js/motion.js"></script></body></html>
