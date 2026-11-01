@@ -1,0 +1,53 @@
+/* ===== Utkarsh motion system: transform + opacity only (GPU friendly) ===== */
+:root{--ease:cubic-bezier(.22,.8,.2,1);--rise:34px}
+@media(max-width:767px){:root{--rise:20px}}
+/* scroll reveal (class "mo" is set in <head> so there is no flash) */
+html.mo [data-a]{opacity:0;will-change:transform,opacity;transition:opacity .8s var(--ease) var(--d,0s),transform .8s var(--ease) var(--d,0s)}
+html.mo [data-a="up"]{transform:translate3d(0,var(--rise),0)}
+html.mo [data-a="left"]{transform:translate3d(-28px,0,0)}
+html.mo [data-a="card"]{transform:translate3d(0,var(--rise),0) scale(.96)}
+html.mo [data-a].vis{opacity:1;transform:none}
+/* page load: hero text, navbar, tab bar */
+html.mo header.hero .label{animation:hup .8s var(--ease) .05s both}
+html.mo header.hero .sub{animation:hup .9s var(--ease) .35s both}
+html.mo header.hero .row{animation:hup .9s var(--ease) .5s both}
+html.mo header.hero .mini{animation:hup .9s var(--ease) .62s both}
+html.mo nav{animation:navin .7s var(--ease) both}
+html.mo .tabs{animation:tabin .7s var(--ease) .2s both}
+@keyframes hup{from{opacity:0;transform:translate3d(0,22px,0)}to{opacity:1;transform:none}}
+@keyframes navin{from{opacity:0;transform:translate3d(0,-100%,0)}to{opacity:1;transform:none}}
+@keyframes tabin{from{transform:translate3d(0,100%,0)}to{transform:none}}
+/* page change fade */
+html.mo body{animation:pgin .45s ease both}
+html.leaving body{animation:pgout .22s ease both}
+@keyframes pgin{from{opacity:0}to{opacity:1}}
+@keyframes pgout{to{opacity:0}}
+/* buttons: hover, press, ripple */
+.pill,.ghost,.chipb,.opt,.phone a.chip{position:relative;overflow:hidden;-webkit-user-select:none;user-select:none}
+#ub{overflow:hidden}
+.pill,.ghost{transition:transform .25s var(--ease),box-shadow .25s,background .25s,border-color .25s}
+.pill:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(var(--pri-rgb),.35)}
+.ghost:hover{transform:translateY(-2px)}
+.pill:active,.ghost:active,.chipb:active,.opt:active,.card:active{transform:scale(.97)}
+.chipb{transition:transform .25s var(--ease),background .25s,border-color .25s}.chipb.on{transform:scale(1.04)}
+.rp{position:absolute;border-radius:50%;background:rgba(255,255,255,.35);width:20px;height:20px;margin:-10px 0 0 -10px;pointer-events:none;animation:rp .6s ease-out forwards}
+@keyframes rp{to{transform:scale(14);opacity:0}}
+/* nav link underline */
+.links a{position:relative}
+.links a::after{content:"";position:absolute;left:0;bottom:-6px;height:2px;width:100%;background:var(--pri);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.links a:hover::after,.links a.on::after{transform:scaleX(1)}
+/* mobile menu slide */
+.drawer{display:block!important;visibility:hidden;opacity:0;transform:translate3d(0,-10px,0);transition:opacity .3s,transform .35s var(--ease),visibility 0s .35s}
+nav.open .drawer{visibility:visible;opacity:1;transform:none;transition:opacity .3s,transform .35s var(--ease),visibility 0s}
+.drawer a{opacity:0;transform:translate3d(-12px,0,0);transition:opacity .35s,transform .4s var(--ease)}
+nav.open .drawer a{opacity:1;transform:none}
+nav.open .drawer a:nth-child(1){transition-delay:.05s}nav.open .drawer a:nth-child(2){transition-delay:.09s}nav.open .drawer a:nth-child(3){transition-delay:.13s}nav.open .drawer a:nth-child(4){transition-delay:.17s}nav.open .drawer a:nth-child(5){transition-delay:.21s}nav.open .drawer a:nth-child(6){transition-delay:.25s}nav.open .drawer a:nth-child(7){transition-delay:.29s}
+/* FAQ open, form focus, selector result */
+details.fq[open] p{animation:fqd .4s var(--ease) both}
+@keyframes fqd{from{opacity:0;transform:translate3d(0,-6px,0)}to{opacity:1;transform:none}}
+input,select,textarea{transition:box-shadow .25s,border-color .25s}
+input:focus,select:focus,textarea:focus{box-shadow:0 0 0 3px rgba(var(--pri-rgb),.22)}
+#res.pop{animation:rpop .5s var(--ease)}
+@keyframes rpop{from{opacity:.3;transform:translate3d(0,12px,0) scale(.98)}to{opacity:1;transform:none}}
+#emsg:not(:empty){animation:fqd .4s var(--ease) both}
+@media(prefers-reduced-motion:reduce){html.mo [data-a]{opacity:1!important;transform:none!important;transition:none!important}html.mo body,html.mo nav,html.mo .tabs,html.mo header.hero .label,html.mo header.hero .sub,html.mo header.hero .row,html.mo header.hero .mini{animation:none!important}.drawer,.drawer a{transition:none}}
