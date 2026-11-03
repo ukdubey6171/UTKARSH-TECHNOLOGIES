@@ -36,4 +36,4 @@ var url=base+"&plan="+PL[t][0]+"&note="+encodeURIComponent(sel.join(", ")+quote)
 res.innerHTML='<span class="label">Recommended for you</span><h3>'+PL[t][0]+' package</h3><div class="price">'+PL[t][1]+' <small>approx. starting price</small></div><p style="margin-top:12px"><b>Your selection:</b> '+esc(sel.join(", "))+'</p><p><b>Included in this package:</b></p><ul class="ck">'+inc.map(function(x){return "<li>"+esc(x)+"</li>"}).join("")+'</ul>'+odTxt+NOTE+'<div class="row"><a class="pill" href="'+url+'">'+(oq.length?"Send enquiry &amp; ask for quote":"Send enquiry for this package")+'</a>'+CALL+'</div>'}
 var q=new URLSearchParams(location.search).get("purpose");pick(PU[q]?q:"Election Campaign");
 })();
-</script><script src="js/chatbot.js"></script><script src="js/motion.js"></script></body></html>
+</script><script src="js/chatbot.js"></script><script src="js/cards.js"></script><script src="js/motion.js"></script></body></html>
